@@ -1,12 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <LeftNav></LeftNav>
+    <div class="main">
+      <router-view></router-view>
     </div>
-    <router-view/>
   </div>
 </template>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 获取html宽度 浏览器兼容 苹果5默认html font-size 16px
+  let htmlWidth =
+    document.documentElement.clientWidth || document.body.clientWidth;
+  // 获取html对象
+  let htmlDom = document.getElementsByTagName("html")[0];
+  // 页面宽度固定不能大于750
+  if (htmlWidth > 750) {
+    htmlWidth = 750;
+  }
+  // 网易的方案
+  // 苹果6 物理375px 设计稿750px  375/3.75=100  1rem=100px  375/7.5=100 1rem = 50px
+  htmlDom.style.fontSize = htmlWidth / 7.5 + "px";
+});
+import LeftNav from './components/common/LeftNav';
+export default {
+  name:'app',
+  components:{
+    LeftNav
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -25,5 +48,12 @@
       color: #42b983;
     }
   }
+}
+.main{
+  float: left;
+  width: 95%;
+  height: 100%;
+  background-color: #EFF2F7;
+  overflow: hidden;//溢出隐藏
 }
 </style>
